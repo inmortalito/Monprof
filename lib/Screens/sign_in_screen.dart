@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:url_launcher/url_launcher.dart';
+
 import '../provider/home_data_provider.dart';
 import '../Screens/bottom_navigation_screen.dart';
 import '../Widgets/email_field.dart';
@@ -8,12 +12,15 @@ import 'package:flutter/material.dart';
 import '../services/http_services.dart';
 import 'dart:async';
 
+import 'filiers_screen.dart';
+
 class SignInScreen extends StatefulWidget {
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMixin {
+class _SignInScreenState extends State<SignInScreen>
+    with TickerProviderStateMixin {
   int _duration;
   bool _visible = false;
   Animation<double> animation;
@@ -88,16 +95,16 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
   }
 
 // Logo on login page
-  Widget logo(String img) {
+  Widget logo() {
     return Container(
-      margin: EdgeInsets.only(top: 50.0),
-      padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 60.0),
+      margin: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
       child: AnimatedOpacity(
         opacity: _visible == true ? 1.0 : 0.0,
         duration: Duration(milliseconds: 500),
         child: new Image.asset(
-          "assets/images/logologin.png",
-          scale: 1.5,
+          "assets/new/logo_new.png",
+          scale: 1.2,
         ),
       ),
     );
@@ -108,27 +115,29 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
     return Container(
       child: ButtonTheme(
         minWidth: width - 50,
+        height: 10,
         child: RaisedButton(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(10),
           ),
           padding: EdgeInsets.all(15.0),
           child: Text(
-            "Sign In",
+            "Connexion",
             style: TextStyle(
-                fontFamily: "Mada", fontSize: 22.0, color: Color(0xFF181632)),
+                fontFamily: "Mada", fontSize: 15.0, color: Color(0xFFFFFFFF)),
           ),
-          color: Colors.white,
-          disabledColor: Colors.white.withOpacity(0.5),
+          color: Color(0xFF037FF2),
+          disabledColor: Color(0xFF037FF2).withOpacity(0.5),
           onPressed: userDetails.getSignInEmail
               ? () async {
                   showLoaderDialog(context);
-                  bool login = await httpService.login(
+                  int statuCode = await httpService.login(
                       userDetails.getEmail.value,
                       userDetails.getPass.value,
                       context);
                   Navigator.pop(context);
-                  if (login) {
+
+                  if (statuCode == 200) {
                     userDetails.destroyLoginValues();
                     Navigator.push(
                         context,
@@ -136,10 +145,20 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
                             builder: (context) => MyBottomNavigationBar(
                                   pageInd: 0,
                                 )));
+                    //Navigator.push(context,
+                    //   MaterialPageRoute(builder: (context) => Filiers()));
+
+                  } else if (statuCode == 499) {
+                    //Navigator.of(context).pushNamed('/SignIn');
+                    Navigator.pushNamed(context, "/underreview");
+                    /*sk.currentState.showSnackBar(SnackBar(
+                        backgroundColor: Color(0xFFffc107),
+                        content: Text("Votre compte est en cours d'examen")));*/
                   } else {
                     sk.currentState.showSnackBar(SnackBar(
+                        backgroundColor: Color(0xFFdf4759),
                         content: Text(
-                            "Request Fail ! Please recheck Your Details!")));
+                            "Demande échoué! S'il vous plaît vérifier vos informations!")));
                   }
                 }
               : null,
@@ -157,11 +176,11 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          "Don't have an account ?",
+          "Vous n'avez pas un compte?",
           style: TextStyle(
             fontFamily: "Mada",
-            fontSize: 16,
-            color: Colors.white,
+            fontSize: 12,
+            color: Color(0xFF707070),
           ),
         ),
         SizedBox(
@@ -174,14 +193,14 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
             decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(
-              color: Colors.white, // Text colour here
+              color: Color(0xFF037FF2), // Text colour here
               width: 1.0, // Underline width
             ))),
             child: InkWell(
               child: Text(
-                "Sign Up",
+                "Créez-en un maintenant!",
                 style: TextStyle(
-                    fontFamily: "Mada", fontSize: 16, color: Colors.white),
+                    fontFamily: "Mada", fontSize: 12, color: Color(0xFF037FF2)),
               ),
               onTap: () {
                 return Navigator.of(context).pushNamed('/signUp');
@@ -191,17 +210,119 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
     );
   }
 
+  //  Contact row
+  Widget contactez() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        MaterialButton(
+          padding: EdgeInsets.all(8.0),
+          textColor: Colors.white,
+          splashColor: Colors.white,
+          elevation: 8.0,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                  image: AssetImage('assets/images/whatsapp.png'),
+                  fit: BoxFit.cover),
+            ),
+            child: Padding(padding: const EdgeInsets.only(top: 50, right: 120)),
+          ),
+          onPressed: () {
+            openwhatsapp();
+          },
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        MaterialButton(
+          padding: EdgeInsets.all(8.0),
+          textColor: Colors.white,
+          splashColor: Colors.white,
+          elevation: 8.0,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                  image: AssetImage('assets/images/fb.png'), fit: BoxFit.cover),
+            ),
+            child: Padding(padding: const EdgeInsets.only(top: 50, right: 120)),
+          ),
+          onPressed: () {
+            openfb();
+          },
+        ),
+      ],
+    );
+  }
+
+  openfb() async {
+    String fbProtocolUrl;
+    if (Platform.isIOS) {
+      fbProtocolUrl = 'fb://profile/111807941553397';
+    } else {
+      fbProtocolUrl = 'fb://page/111807941553397';
+    }
+
+    String fallbackUrl = 'https://www.facebook.com/AvecMonProf';
+
+    try {
+      bool launched = await launch(fbProtocolUrl, forceSafariVC: false);
+
+      if (!launched) {
+        await launch(fallbackUrl, forceSafariVC: false);
+      }
+    } catch (e) {
+      await launch(fallbackUrl, forceSafariVC: false);
+    }
+  }
+
+  openwhatsapp() async {
+    var whatsapp = "+212717607747";
+    var whatsappURl_android =
+        "whatsapp://send?phone=" + whatsapp + "&text=عرض الدعم2 باك";
+    var whatappURL_ios = "https://wa.me/$whatsapp?text=${Uri.parse("hello")}";
+    if (Platform.isIOS) {
+      // for iOS phone only
+      if (await canLaunch(whatappURL_ios)) {
+        await launch(whatappURL_ios, forceSafariVC: false);
+      } else {
+        sk.currentState
+            .showSnackBar(SnackBar(content: new Text("whatsapp no installed")));
+      }
+    } else {
+      // android , web
+      if (await canLaunch(whatsappURl_android)) {
+        await launch(whatsappURl_android);
+      } else {
+        sk.currentState
+            .showSnackBar(SnackBar(content: new Text("whatsapp no installed")));
+      }
+    }
+  }
+
 //  Login View
   Widget loginFields(homeAPIData) {
     var width = MediaQuery.of(context).size.width;
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          logo(homeAPIData.homeModel.settings.logo),
+          logo(),
           SizedBox(
             height: 30,
+          ),
+          Text(
+            "Login".toUpperCase(),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 1.0),
+          ),
+          SizedBox(
+            height: 30, // <-- SEE HERE
           ),
           EmailField(),
           SizedBox(
@@ -209,15 +330,7 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
           ),
           PasswordField(),
           SizedBox(
-            height: 30.0,
-          ),
-          signInButton(width),
-          SizedBox(
-            height: 90.0,
-          ),
-          signUpRow(),
-          SizedBox(
-            height: 10,
+            height: 10.0,
           ),
           Container(
               padding: EdgeInsets.only(
@@ -233,24 +346,43 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Forgot Password?",
+                    "Mot de passe oublié?",
                     style: TextStyle(
-                        fontFamily: "Mada", fontSize: 14, color: Colors.white),
+                        fontFamily: "Mada",
+                        fontSize: 14,
+                        color: Color(0xFF037FF2)),
                   ),
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, "/forgotPassword");
                 },
               )),
+          signInButton(width),
+          SizedBox(
+            height: 10,
+          ),
+          signUpRow(),
+          SizedBox(
+            height: 50.0,
+          ),
+          Text(
+            "Contactez-Nous".toUpperCase(),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 1.0),
+          ),
+          contactez(),
+          SizedBox(
+            height: 0.0,
+          ),
           Align(
             alignment: FractionalOffset.bottomCenter,
             child: Container(
               padding: EdgeInsets.all(25.0),
               child: Text(
-                homeAPIData.homeModel.settings.cpyTxt,
+                "Copyright ©2022 MonProf",
                 style: TextStyle(
                     fontFamily: "Mada",
-                    color: Colors.white.withOpacity(0.5),
+                    color: Color(0xFF037FF2).withOpacity(0.5),
                     height: 1.5),
                 textAlign: TextAlign.center,
               ),
@@ -285,21 +417,10 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
             ),
             Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: FractionalOffset.bottomCenter,
-                    stops: [
-                      0.0,
-                      0.20,
-                      0.28,
-                      0.60
-                    ],
-                    colors: [
-                      Color(0xFF181632).withOpacity(0.3),
-                      Color(0xFF181632).withOpacity(0.7),
-                      Color(0xFF181632).withOpacity(0.9),
-                      Color(0xFF181632)
-                    ]),
+                image: DecorationImage(
+                  image: AssetImage('assets/new/background_login.png'),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ]),
@@ -351,7 +472,7 @@ class _SignInScreenState extends State<SignInScreen> with TickerProviderStateMix
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset("assets/images/logo.png"),
+                      Image.asset("assets/new/logo_new.png", width: 300),
                     ],
                   ),
                   SizedBox(

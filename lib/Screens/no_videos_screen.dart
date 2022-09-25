@@ -20,13 +20,13 @@ class EmptyVideosPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "No videos to show",
+            "Aucune vidéo à afficher",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
           Container(
             width: 200,
             child: Text(
-              "Looks like your admin haven't add videos in here",
+              "Il semble que votre prof n'ait pas encore ajouté de vidéos ici",
               textAlign: TextAlign.center,
               style:
                   TextStyle(fontSize: 15, color: Colors.black.withOpacity(0.7)),

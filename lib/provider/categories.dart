@@ -78,14 +78,22 @@ class CategoryList {
     String url = APIData.subCategories + "${APIData.secretKey}";
     List<SubCategory> subcategories = [];
     Response res = await get(url);
+
+    //print(res.body);
+    //print(res.statusCode);
     if (res.statusCode == 200) {
-      List<dynamic> body = jsonDecode(res.body)["sub"];
+      List<dynamic> body = jsonDecode(res.body)["category"];
+
+      //print("===========333333====");
+      //print(body.length);
+      //print("===========333333====");
 
       for (int i = 0; i < body.length; i++) {
+        //print(body[i]["title"]["en"]);
         subcategories.add(SubCategory(
           id: body[i]["id"],
           categoryId: body[i]["category_id"],
-          title: body[i]["title"],
+          title: body[i]["title"]["en"],
           icon: body[i]["icon"],
           slug: body[i]["slug"],
           status: body[i]["status"],
@@ -95,7 +103,7 @@ class CategoryList {
       }
     } else
       throw "err";
-
+    //print(subcategories.length);
     return subcategories;
   }
 

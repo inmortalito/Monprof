@@ -21,7 +21,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var token = await storage.read(key: "token");
       authToken = token;
-      HomeDataProvider homeData = Provider.of<HomeDataProvider>(context, listen: false);
+      HomeDataProvider homeData =
+          Provider.of<HomeDataProvider>(context, listen: false);
       await homeData.getHomeDetails(context);
       setState(() {
         authToken = token;
@@ -44,7 +45,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/logo.png"),
+            Image.asset("assets/new/logo_new.png"),
           ],
         ),
         SizedBox(

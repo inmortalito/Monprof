@@ -1,14 +1,10 @@
 import 'dart:convert';
 import '../Widgets/course_detail_menu.dart';
-import '../Widgets/course_tile_widget_list.dart';
-import '../Widgets/expandable_text.dart';
 import '../Widgets/rating_star.dart';
 import '../Widgets/resume_and_startbeg.dart';
 import '../Widgets/add_and_buy.dart';
-import '../Widgets/course_grid_item.dart';
 import '../Widgets/course_key_points.dart';
 import '../Widgets/html_text.dart';
-import '../Widgets/instructorwidget.dart';
 import '../Widgets/lessons.dart';
 import '../Widgets/utils.dart';
 import '../Widgets/videoplayer.dart';
@@ -25,7 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../Widgets/studfeedwid.dart';
 import '../provider/courses_provider.dart';
 import '../services/http_services.dart';
 
@@ -139,7 +134,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
     return (ans / data.length).toStringAsPrecision(2);
   }
 
-
   Widget fun(String a, String b) {
     return Row(
       children: [
@@ -202,7 +196,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
     super.didChangeDependencies();
   }
 
-  Route _menuRoute(int id, bool isFav, bool isPurchased, FullCourse details, List<String> pro) {
+  Route _menuRoute(int id, bool isFav, bool isPurchased, FullCourse details,
+      List<String> pro) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
           CourseDetailMenuScreen(isFav, isPurchased, details, pro),
@@ -470,7 +465,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
       backgroundColor: Color(0xff29303b),
       centerTitle: true,
       title: Text(
-        "$category",
+        details.course.title,
         style: TextStyle(fontSize: 16.0),
       ),
       leading: IconButton(
@@ -485,11 +480,11 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
           padding: const EdgeInsets.all(15.0),
           child: InkWell(
             onTap: () {
-              Navigator.push(
+              /* Navigator.push(
                 context,
                 _menuRoute(
                     details.course.id, isFav, isPur, details, markedChpIds),
-              );
+              );*/
             },
             child: Image.asset("assets/icons/coursedetailmenu.png", width: 17),
           ),
@@ -524,7 +519,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                   child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "LESSON",
+                        "Les Chapitres".toUpperCase(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color:
@@ -547,7 +542,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                   child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "OVERVIEW",
+                        "Description".toUpperCase(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: tabselIdx == 1
@@ -580,15 +575,15 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
               child: CustomScrollView(
                 slivers: [
                   appB(category, details, markedChpIds, isFav, purchased),
-                  detailsSection(purchased, details, currency, progress),
+                  //detailsSection(purchased, details, currency, progress),
                   if (!purchased && type == "1")
                     AddAndBuy(
                         details.course.id, details.course.price, _scaffoldKey)
                   else
                     ResumeAndStart(details, markedChpIds),
 
-                  previewVideoPlayer(details.course.url),
-                  if (details.course.whatlearns.length == 0)
+                  //previewVideoPlayer(details.course.url),
+                  /*if (details.course.whatlearns.length == 0)
                     SliverToBoxAdapter(
                       child: SizedBox.shrink(),
                     )
@@ -607,6 +602,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                       child: headingTitle("Requirements", txtcolor, 20),
                     ),
                   //requirements
+                  
                   if (details.course.requirement.length == 0)
                     SliverToBoxAdapter(
                       child: SizedBox.shrink(),
@@ -627,15 +623,12 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                               ),
                       ),
                     ),
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 20.0,
-                    ),
-                  ),
+                  */
+
                   tabbar(),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: 20.0,
+                      height: 10.0,
                     ),
                   ),
                   if (tabselIdx == 1)
@@ -644,7 +637,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                   else if (tabselIdx == 0)
                     Lessons(details, purchased, markedChpIds),
                   //RecentCourses
-                  SliverToBoxAdapter(
+                  /* SliverToBoxAdapter(
                     child: Container(
                       padding: EdgeInsets.fromLTRB(12.0, 20.0, 12.0, 5.0),
                       child: Row(
@@ -812,7 +805,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen>
                     child: SizedBox(
                       height: 30,
                     ),
-                  )
+                  )*/
                 ],
               ));
         } else

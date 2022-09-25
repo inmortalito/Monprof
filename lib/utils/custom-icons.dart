@@ -11,6 +11,7 @@ class CustomIcons {
   // Generated code: do not hand-edit.
   // BEGIN GENERATED
 
+  static const IconData chat = IconData(0xe96b, fontFamily: 'icomoon');
   static const IconData home = IconData(0xe900, fontFamily: 'icomoon');
   static const IconData home_color = IconData(0xe911, fontFamily: 'icomoon');
   static const IconData courses = IconData(0xe901, fontFamily: 'icomoon');

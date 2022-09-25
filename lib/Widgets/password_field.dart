@@ -14,17 +14,30 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget passField(context) {
     var usedeob = Provider.of<UserDetailsProvider>(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+      height: 40,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: Offset(0, 2),
+            )
+          ]),
+      padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 10.0),
       child: TextField(
         obscureText: _showPassword,
         style:
-            TextStyle(color: Colors.white, fontFamily: "Mada", fontSize: 22.0),
+            TextStyle(color: Colors.black, fontFamily: "Mada", fontSize: 18.0),
         onChanged: (String value) {
           usedeob.changePass(value);
         },
         keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(
           suffixIcon: IconButton(
+            padding: EdgeInsets.zero,
             icon: this._showPassword
                 ? Icon(
                     Icons.visibility_off,
@@ -32,36 +45,17 @@ class _PasswordFieldState extends State<PasswordField> {
                   )
                 : Icon(
                     Icons.visibility,
-                    color: Colors.white,
+                    color: Colors.grey,
                   ),
             onPressed: () {
               setState(() => this._showPassword = !this._showPassword);
             },
           ),
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: const BorderSide(
-              color: Color.fromRGBO(255, 255, 255, 0.5),
-              width: 2.0,
-            ),
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(top: 12.0, left: 2.0, bottom: 12.0),
-            child: Icon(
-              FontAwesomeIcons.key,
-              color: Colors.white.withOpacity(0.5),
-              size: 20,
-            ),
-          ),
-          hintText: "Enter your password",
+          hintText: "Password",
           hintStyle: TextStyle(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.black.withOpacity(0.5),
               fontFamily: "Muli",
-              fontSize: 22.0),
-          errorText: usedeob.password.error,
-          errorStyle: TextStyle(
-              color: Colors.white, fontFamily: "Muli", fontSize: 12.0),
-          errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFF44A4A))),
+              fontSize: 14.0),
           focusedErrorBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white, width: 2.0)),
           focusedBorder: UnderlineInputBorder(

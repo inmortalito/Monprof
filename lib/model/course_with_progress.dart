@@ -43,6 +43,7 @@ class CourseWithProgress {
     this.whatlearns,
     this.include,
     this.progress,
+    this.institude_id,
   });
 
   int id;
@@ -74,6 +75,7 @@ class CourseWithProgress {
   List<Include> whatlearns;
   List<Include> include;
   List<Progress> progress;
+  String institude_id;
 
   factory CourseWithProgress.fromJson(Map<String, dynamic> json) =>
       CourseWithProgress(
@@ -89,6 +91,7 @@ class CourseWithProgress {
         requirement: json["requirement"],
         price: json["price"],
         discountPrice: json["discount_price"],
+        institude_id: json["institude_id"],
         day: json["day"],
         video: json["video"],
         url: json["url"],
@@ -130,6 +133,7 @@ class CourseWithProgress {
         "featured": featured,
         "slug": slug,
         "status": status,
+        "institude_id": institude_id,
         "preview_image": previewImage,
         "video_url": videoUrl,
         "preview_type": previewType,

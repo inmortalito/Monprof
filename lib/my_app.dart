@@ -1,26 +1,27 @@
 import 'package:eclass/provider/recent_course_provider.dart';
-import 'Screens/faq_screen.dart';
-import 'Screens/instructor_faq_screen.dart';
+import 'Screens/cours_screen.dart';
+
+import 'Screens/filiers_screen.dart';
+
+import 'Screens/live.dart';
 import 'Screens/loading_screen.dart';
-import 'Screens/about_us_screen.dart';
-import 'Screens/became_instructor_screen.dart';
-import 'Screens/bundle_detail_screen.dart';
+
 import 'Screens/category_screen.dart';
-import 'Screens/child_category_screen.dart';
 import 'Screens/contact_us_screen.dart';
 import 'Screens/course_details_screen.dart';
-import 'Screens/course_instructor_screen.dart';
 import 'Screens/courses_screen.dart';
 import 'Screens/edit_profile.dart';
 import 'Screens/filter_screen.dart';
 import 'Screens/forgot_password.dart';
-import 'Screens/home_screen.dart';
+
+import 'Screens/semester_screen.dart';
 import 'Screens/sign_in_screen.dart';
 import 'Screens/notification_detail_screen.dart';
 import 'Screens/notifications_screen.dart';
-import 'Screens/purchase_history_screen.dart';
+
 import 'Screens/sign_up_screen.dart';
-import 'Screens/sub_category_screen.dart';
+
+import 'Screens/underreview.dart';
 import 'provider/bundle_course.dart';
 import 'provider/cart_pro_api.dart';
 import 'provider/filter_pro.dart';
@@ -34,6 +35,7 @@ import 'provider/courses_provider.dart';
 import 'provider/user_details_provider.dart';
 import 'common/theme.dart' as T;
 import 'provider/user_profile.dart';
+import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
@@ -43,9 +45,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserDetailsProvider()), // Fetch User Details
+        ChangeNotifierProvider(
+            create: (_) => UserDetailsProvider()), // Fetch User Details
         ChangeNotifierProvider(create: (_) => T.Theme()), // Theme Data
         ChangeNotifierProvider(create: (_) => UserProfile()),
         ChangeNotifierProvider(create: (_) => WishListProvider()),
@@ -65,25 +72,20 @@ class MyApp extends StatelessWidget {
         routes: {
           '/SignIn': (context) => SignInScreen(),
           '/courseDetails': (context) => CourseDetailScreen(),
-          '/InstructorScreen': (context) => CourseInstructorScreen(),
-          '/homeScreen': (context) => HomeScreen(),
           '/CoursesScreen': (context) => CoursesScreen(),
           '/signUp': (context) => SignUpScreen(),
           '/category': (context) => CategoryScreen(),
-          '/subCategory': (context) => SubCategoryScreen(),
-          '/childCategory': (context) => ChildCategoryScreen(),
           '/forgotPassword': (context) => ForgotPassword(),
           '/editProfile': (context) => EditProfile(),
-          "/bundleCourseDetail": (context) => BundleDetailScreen(),
           "/filterScreen": (context) => FilterScreen(),
           '/notifications': (context) => NotificationScreen(),
-          '/becameInstructor': (context) => BecomeInstructor(),
-          '/aboutUs': (context) => AboutUsScreen(),
-          '/purchaseHistory': (context) => PurchaseHistoryScreen(),
           '/contactUs': (context) => ContactUsScreen(),
           '/notificationDetail': (context) => NotificationDetail(),
-          '/userFaq': (context) => FaqScreen(),
-          '/instructorFaq': (context) => InstructorFaqScreen(),
+          '/underreview': (context) => UnderReview(),
+          '/filieres': (context) => Filiers(),
+          '/semester': (context) => Semester(),
+          '/live': (context) => Live(),
+          //'/courses': (context) => Cours(),
         },
       ),
     );

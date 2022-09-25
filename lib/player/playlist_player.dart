@@ -3,7 +3,6 @@ import 'dart:math';
 import 'dart:convert';
 import 'package:eclass/model/zoom_meeting.dart';
 import 'package:eclass/provider/home_data_provider.dart';
-import 'package:eclass/zoom/join_screen.dart';
 import 'package:intl/intl.dart';
 import '../common/apidata.dart';
 import '../common/global.dart';
@@ -24,7 +23,12 @@ import '../common/theme.dart' as T;
 
 class PlayPage extends StatefulWidget {
   PlayPage(
-      {Key key, this.clips, this.sections, this.markedSec, this.defaultIndex, this.courseDetails})
+      {Key key,
+      this.clips,
+      this.sections,
+      this.markedSec,
+      this.defaultIndex,
+      this.courseDetails})
       : super(key: key);
   final List<Section> sections;
   final List<VideoClip> clips;
@@ -144,6 +148,7 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
 
     super.initState();
   }
+
   void listener2() {
     if (_isPlayerReady && mounted && !_controller2.value.isFullScreen) {
       setState(() {
@@ -152,6 +157,7 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
       });
     }
   }
+
   void listener() {
     if (_isPlayerReady && mounted && !_controller2.value.isFullScreen) {
       setState(() {
@@ -235,11 +241,11 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
   }
 
   void _toggleFullscreen() async {
-      if (_isFullScreen) {
-        _exitFullScreen();
-      } else {
-        _enterFullScreen();
-      }
+    if (_isFullScreen) {
+      _exitFullScreen();
+    } else {
+      _enterFullScreen();
+    }
   }
 
   void _statusBarHidden() async {
@@ -263,11 +269,11 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
     await SystemChrome.setEnabledSystemUIOverlays([]);
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-      _controller2.pause();
-      Future.delayed(const Duration(seconds: 1), () {
-        _controller2.seekTo(_position);
-        _controller2.play();
-      });
+    _controller2.pause();
+    Future.delayed(const Duration(seconds: 1), () {
+      _controller2.seekTo(_position);
+      _controller2.play();
+    });
 
     if (_disposed) return;
     setState(() {
@@ -277,7 +283,8 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
 
   void _exitFullScreen() async {
     await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
     ]);
     _controller2.pause();
     Future.delayed(const Duration(seconds: 1), () {
@@ -323,7 +330,7 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
             enableCaption: true,
           ),
         );
-       _controller2 = controller;
+        _controller2 = controller;
 
         if (_controller2 != null) {
           setState(() {
@@ -355,9 +362,9 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
           old.removeListener(_onControllerUpdated);
           old.pause();
         }
-          setState(() {
-            _playingIndex = index;
-          });
+        setState(() {
+          _playingIndex = index;
+        });
       }
     } else {
       setState(() {
@@ -418,7 +425,8 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
       } else {
         animationController.forward();
       }
-      final isEndOfClip = position.inMilliseconds > 0 && position.inSeconds + 1 >= duration.inSeconds;
+      final isEndOfClip = position.inMilliseconds > 0 &&
+          position.inSeconds + 1 >= duration.inSeconds;
       if (playing) {
         // handle progress indicator
         if (_disposed) return;
@@ -478,35 +486,35 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
         _nextPlay(newIndex);
       }
     } catch (e) {}
-      return Scaffold(
-        bottomNavigationBar: _isFullScreen
-            ? SizedBox.shrink()
-            : showBottomNavigation
-            ? Container(
-          height: 80,
-          child: Center(child: markAsComplete()),
-        )
-            : SizedBox.shrink(),
-        key: _scaffoldKey,
-        body: _isFullScreen
-            ? Container(
-          child: Center(
-            child: _playView(context),
-          ),
-          decoration: BoxDecoration(color: Colors.black),
-        )
-            : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                child: Center(child: _playView(context)),
-                decoration: BoxDecoration(color: Colors.black),
+    return Scaffold(
+      bottomNavigationBar: _isFullScreen
+          ? SizedBox.shrink()
+          : showBottomNavigation
+              ? Container(
+                  height: 80,
+                  child: Center(child: markAsComplete()),
+                )
+              : SizedBox.shrink(),
+      key: _scaffoldKey,
+      body: _isFullScreen
+          ? Container(
+              child: Center(
+                child: _playView(context),
               ),
-              _listViewt(),
-            ]),
-        backgroundColor: Color(0xFFF1F3F8),
-      );
+              decoration: BoxDecoration(color: Colors.black),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                  Container(
+                    child: Center(child: _playView(context)),
+                    decoration: BoxDecoration(color: Colors.black),
+                  ),
+                  _listViewt(),
+                ]),
+      backgroundColor: Color(0xFFF1F3F8),
+    );
   }
 
   void _onTapCard(int index) {
@@ -540,7 +548,8 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
     var width = MediaQuery.of(context).size.width;
     if (isPlayerTypeYutube) {
       return AspectRatio(
-        aspectRatio: orientation ==  Orientation.landscape ? width / height : 16 / 9,
+        aspectRatio:
+            orientation == Orientation.landscape ? width / height : 16 / 9,
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
@@ -584,8 +593,7 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                   key: _scaffoldKey,
                   body: ListView(
                     children: [player],
-                  )
-              ),
+                  )),
             )
           ],
         ),
@@ -616,7 +624,8 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
         );
       } else {
         return AspectRatio(
-          aspectRatio: orientation ==  Orientation.landscape ? width / height : 16 / 9,
+          aspectRatio:
+              orientation == Orientation.landscape ? width / height : 16 / 9,
           child: Center(
               child: Text(
             "Loading ...",
@@ -911,7 +920,10 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
               secDetails.chapterName,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: mode.titleTextColor),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: mode.titleTextColor),
             ),
           ),
         ],
@@ -942,102 +954,122 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
     return sectionWidget;
   }
 
-  List<Widget> zoomMeetingList(List<ZoomMeeting> zoomMeetings){
+  List<Widget> zoomMeetingList(List<ZoomMeeting> zoomMeetings) {
     T.Theme mode = Provider.of<T.Theme>(context);
     List<Widget> list = [];
-    for(int i=0; i<zoomMeetings.length; i++){
-      if("${zoomMeetings[i].courseId}" == "${widget.courseDetails.course.id}"){
+    for (int i = 0; i < zoomMeetings.length; i++) {
+      if ("${zoomMeetings[i].courseId}" ==
+          "${widget.courseDetails.course.id}") {
         list.add(Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10.0),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10.0),
                 child: Row(
                   children: [
                     Text(
                       "Zoom Meeting",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
-                  ],
-                ),),
-              InkWell(child: Container(
-                height: 120,
-                padding: EdgeInsets.all(15.0),
-                margin: EdgeInsets.only(right: 15.0, bottom: 10.0, left: 15.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color(0x1c2464).withOpacity(0.30),
-                        blurRadius: 25.0,
-                        offset: Offset(0.0, 20.0),
-                        spreadRadius: -15.0)
-                  ],
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(zoomMeetings[i].meetingTitle,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: mode.titleTextColor,
-                              )),
-                          Row(
-                            children: [
-                              Padding(
-                                child: Text("Meeting Id: ",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(color: mode.titleTextColor.withOpacity(0.8),)),
-                                padding: EdgeInsets.only(top: 3),
-                              ),
-                              Padding(
-                                child: Text("${zoomMeetings[i].meetingId}",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(color: mode.titleTextColor.withOpacity(0.8),)),
-                                padding: EdgeInsets.only(top: 3),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                child: Text("Starting At: ",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(color: mode.titleTextColor.withOpacity(0.8),)),
-                                padding: EdgeInsets.only(top: 3),
-                              ),
-                              Padding(
-                                child: Text("${DateFormat('dd-MM-yyyy | hh:mm').format(zoomMeetings[i].startTime)}",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(color: mode.titleTextColor.withOpacity(0.8),)),
-                                padding: EdgeInsets.only(top: 3),
-                              ),
-                            ],
-                          ),
-                        ]),
                   ],
                 ),
               ),
-              onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => JoinWidget()));
-              },),
+              InkWell(
+                child: Container(
+                  height: 120,
+                  padding: EdgeInsets.all(15.0),
+                  margin:
+                      EdgeInsets.only(right: 15.0, bottom: 10.0, left: 15.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color(0x1c2464).withOpacity(0.30),
+                          blurRadius: 25.0,
+                          offset: Offset(0.0, 20.0),
+                          spreadRadius: -15.0)
+                    ],
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(zoomMeetings[i].meetingTitle,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  color: mode.titleTextColor,
+                                )),
+                            Row(
+                              children: [
+                                Padding(
+                                  child: Text("Meeting Id: ",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: mode.titleTextColor
+                                            .withOpacity(0.8),
+                                      )),
+                                  padding: EdgeInsets.only(top: 3),
+                                ),
+                                Padding(
+                                  child: Text("${zoomMeetings[i].meetingId}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: mode.titleTextColor
+                                            .withOpacity(0.8),
+                                      )),
+                                  padding: EdgeInsets.only(top: 3),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  child: Text("Starting At: ",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: mode.titleTextColor
+                                            .withOpacity(0.8),
+                                      )),
+                                  padding: EdgeInsets.only(top: 3),
+                                ),
+                                Padding(
+                                  child: Text(
+                                      "${DateFormat('dd-MM-yyyy | hh:mm').format(zoomMeetings[i].startTime)}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: mode.titleTextColor
+                                            .withOpacity(0.8),
+                                      )),
+                                  padding: EdgeInsets.only(top: 3),
+                                ),
+                              ],
+                            ),
+                          ]),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => JoinWidget()));
+                },
+              ),
             ],
           ),
         ));
@@ -1051,14 +1083,14 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
-         children: [
-           Column(
-             children: _buildSections(widget.sections),
-           ),
-           Column(
-             children: zoomMeetingList(zoomMeeting),
-           ),
-         ],
+          children: [
+            Column(
+              children: _buildSections(widget.sections),
+            ),
+            Column(
+              children: zoomMeetingList(zoomMeeting),
+            ),
+          ],
         ),
       ),
     );
@@ -1384,7 +1416,8 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                     child: Text("$runtime",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: mode.titleTextColor.withOpacity(0.8))),
+                        style: TextStyle(
+                            color: mode.titleTextColor.withOpacity(0.8))),
                     padding: EdgeInsets.only(top: 3),
                   )
                 ]),

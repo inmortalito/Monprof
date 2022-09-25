@@ -24,7 +24,7 @@ AppBar appBar(Color clr, BuildContext context, scaffoldKey) {
     elevation: 0.0,
     titleSpacing: 1.0,
     title: Image.asset(
-      "assets/images/logo.png",
+      "assets/new/logo_new.png",
       width: 70.0,
       fit: BoxFit.fitWidth,
     ),

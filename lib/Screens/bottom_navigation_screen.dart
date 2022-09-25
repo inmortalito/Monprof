@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'package:eclass/provider/recent_course_provider.dart';
 
-import '../Screens/cart_screen.dart';
 import '../Screens/courses_screen.dart';
 import '../Screens/settings_screen.dart';
 import '../Widgets/appbar.dart';
-import '../Widgets/custom_drawer.dart';
 import '../common/theme.dart' as T;
 import '../provider/bundle_course.dart';
 import '../provider/courses_provider.dart';
@@ -16,8 +14,7 @@ import '../utils/custom-icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'all_category_screen.dart';
-import 'home_screen.dart';
+import 'filiers_screen.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   MyBottomNavigationBar({this.pageInd});
@@ -32,10 +29,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex;
 
   static List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    CoursesScreen(),
-    AllCategoryScreen(),
-    CartScreen(),
+    //HomeScreen(),
+    Filiers(),
+    // CoursesScreen(),
+    //AllCategoryScreen(),
+    //CartScreen(),
     SettingScreen(),
   ];
 
@@ -47,10 +45,14 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   getHomePageData() async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      CoursesProvider coursesProvider = Provider.of<CoursesProvider>(context, listen: false);
-      RecentCourseProvider recentCourseProvider = Provider.of<RecentCourseProvider>(context, listen: false);
-      BundleCourseProvider bundleCourseProvider = Provider.of<BundleCourseProvider>(context, listen: false);
-      UserProfile userProfile = Provider.of<UserProfile>(context, listen: false);
+      CoursesProvider coursesProvider =
+          Provider.of<CoursesProvider>(context, listen: false);
+      RecentCourseProvider recentCourseProvider =
+          Provider.of<RecentCourseProvider>(context, listen: false);
+      BundleCourseProvider bundleCourseProvider =
+          Provider.of<BundleCourseProvider>(context, listen: false);
+      UserProfile userProfile =
+          Provider.of<UserProfile>(context, listen: false);
       WishListProvider wish =
           Provider.of<WishListProvider>(context, listen: false);
       Visible visiblePro = Provider.of<Visible>(context, listen: false);
@@ -145,7 +147,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(CustomIcons.home),
-            label: 'Home',
+            label: 'Accueil',
             activeIcon: Stack(
               children: [
                 Icon(
@@ -159,7 +161,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               ],
             ),
           ),
-          BottomNavigationBarItem(
+          /* BottomNavigationBarItem(
             icon: Icon(CustomIcons.courses),
             label: 'Courses',
             activeIcon: Stack(
@@ -175,9 +177,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               ],
             ),
           ),
-          BottomNavigationBarItem(
+           BottomNavigationBarItem(
             icon: Icon(CustomIcons.categories),
-            label: 'Categories',
+            label: 'Enregistré',
             activeIcon: Stack(
               children: [
                 Icon(
@@ -192,12 +194,12 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(CustomIcons.cart),
-            label: 'Cart',
+            icon: Icon(CustomIcons.chat),
+            label: 'Q/R',
             activeIcon: Stack(
               children: [
                 Icon(
-                  CustomIcons.cart,
+                  CustomIcons.chat,
                   color: Color.fromRGBO(69, 69, 69, 1.0),
                 ),
                 Icon(
@@ -206,7 +208,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
                 ),
               ],
             ),
-          ),
+          ),*/
           BottomNavigationBarItem(
               icon: Icon(CustomIcons.settings),
               activeIcon: Stack(
@@ -221,7 +223,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
                   ),
                 ],
               ),
-              label: 'Settings'),
+              label: 'Réglages'),
         ],
         currentIndex: _selectedIndex,
         unselectedLabelStyle: TextStyle(color: Colors.white),
@@ -238,7 +240,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         child: Scaffold(
             key: scaffoldKey,
             appBar: appBar(mode.bgcolor, context, scaffoldKey),
-            drawer: CustomDrawer(),
+            //drawer: CustomDrawer(),
             bottomNavigationBar: navigationBar(),
             body: Center(child: _widgetOptions.elementAt(_selectedIndex))),
         onWillPop: onBackPressed);

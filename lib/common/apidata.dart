@@ -1,6 +1,6 @@
 class APIData {
   // Replace with your domain link : http://example.com/public/
-  static const String domainLink = "http://192.168.1.8:8000/";
+  static const String domainLink = "http://bac.monprof.academy/";
   static const String domainApiLink = domainLink + "api/";
 
   // API Links
@@ -16,16 +16,17 @@ class APIData {
   static const String allCourse = domainApiLink + "course?secret=";
   static const String featuredCourses =
       domainApiLink + "featuredcourse?secret=";
-  static const String categories = domainApiLink + "categories?secret=";
-  static const String subCategories = domainApiLink + "subcategories?secret=";
-  static const String childCategories =
-      domainApiLink + "childcategories?secret=";
+  static const String city = domainApiLink + "city?secret=";
+  static const String categories = domainApiLink + "category?secret=";
+  static const String subCategories = domainApiLink + "subcategory?secret=";
+  static const String childCategories = domainApiLink + "childcategory?secret=";
   static const String addToWishList = domainApiLink + "addtowishlist?secret=";
   static const String removeWishList =
       domainApiLink + "remove/wishlist?secret=";
   static const String wishList = domainApiLink + "show/wishlist?secret=";
   static const String featuredCategories =
       domainApiLink + "featured/categories?secret=";
+  static const String semester = domainApiLink + "semester?secret=";
   static const String bundleCourses = domainApiLink + "bundle/courses?secret=";
   static const String recentCourse = domainApiLink + "recent/course?secret=";
   static const String testimonials = domainApiLink + "testimonial?secret=";
@@ -83,7 +84,7 @@ class APIData {
   static const String testimonialImages = domainLink + "images/testimonial/";
   static const String trustedImages = domainLink + "images/trusted/";
   static const String loginImageUri = domainLink + "images/login/";
-  static const String userImage = domainLink + "/images/user_img/";
+  static const String userImage = domainLink + "images/user_img/";
   static const String courseImages = domainLink + "images/course/";
   static const String bundleImages = domainLink + "images/bundle/";
   static const String sliderImages = domainLink + "images/slider/";

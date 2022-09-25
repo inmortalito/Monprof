@@ -144,11 +144,7 @@ class _ResumeAndStartState extends State<ResumeAndStart> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height /
-                  (MediaQuery.of(context).orientation == Orientation.landscape
-                      ? 1.5
-                      : 3.9),
-              padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+              padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
               margin: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 10.0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -157,71 +153,78 @@ class _ResumeAndStartState extends State<ResumeAndStart> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Material(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.red,
-                    child: InkWell(
+                  Container(
+                    margin: EdgeInsets.only(top: 15.0),
+                    child: Material(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: () {
-                        List<String> marksSecs = widget.progress == null ? [] : widget.progress;
-                        int defaultIdx = findIndToResume(sections, marksSecs);
-                        defaultIdx = defaultIdx > _allClips.length - 1 ? 0 : defaultIdx;
+                      color: Color(0xFF037FF2),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {
+                          List<String> marksSecs =
+                              widget.progress == null ? [] : widget.progress;
+                          int defaultIdx = findIndToResume(sections, marksSecs);
+                          defaultIdx = defaultIdx > _allClips.length - 1
+                              ? 0
+                              : defaultIdx;
 
 //                    Resume course or start course
-                        if (_allClips != null && _allClips.length > 0) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => PlayPage(
-                                    markedSec: marksSecs,
-                                    clips: _allClips,
-                                    sections: sections,
-                                    defaultIndex: defaultIdx,
-                                    courseDetails: widget.details,
-                                  )));
-                        } else {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => EmptyVideosPage()));
-                        }
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        height: 55.0,
-                        width: MediaQuery.of(context).size.width - 50,
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            border:
-                                Border.all(width: 1.0, color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: Stack(
-                          children: [
-                            Center(
-                              child: Text(
-                                canUseProgress
-                                    ? widget.progress.length > 0
-                                        ? "Resume"
-                                        : "Start Course"
-                                    : "StartCourse",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
+                          if (_allClips != null && _allClips.length > 0) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => PlayPage(
+                                      markedSec: marksSecs,
+                                      clips: _allClips,
+                                      sections: sections,
+                                      defaultIndex: defaultIdx,
+                                      courseDetails: widget.details,
+                                    )));
+                          } else {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EmptyVideosPage()));
+                          }
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          height: 55.0,
+                          width: MediaQuery.of(context).size.width - 50,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border:
+                                  Border.all(width: 1.0, color: Colors.black12),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: Text(
+                                  canUseProgress
+                                      ? widget.progress.length > 0
+                                          ? "Continue le cours".toUpperCase()
+                                          : "Commencer le cours".toUpperCase()
+                                      : "Commencer le cours".toUpperCase(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            ),
-                            Positioned(
-                              right: 0,
-                              top: 4,
-                              child: Container(
-                                margin: EdgeInsets.all(3.0),
-                                height: 40.0,
-                                width: 40.0,
-                                decoration: BoxDecoration(
-                                    // color: Colors.black12,
-                                    borderRadius: BorderRadius.circular(25.00)),
-                                child:
-                                    Icon(Icons.play_arrow, color: Colors.white),
-                              ),
-                            )
-                          ],
+                              Positioned(
+                                right: 0,
+                                top: 4,
+                                child: Container(
+                                  margin: EdgeInsets.all(3.0),
+                                  height: 40.0,
+                                  width: 40.0,
+                                  decoration: BoxDecoration(
+                                      // color: Colors.black12,
+                                      borderRadius:
+                                          BorderRadius.circular(25.00)),
+                                  child: Icon(Icons.play_arrow,
+                                      color: Colors.white),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -229,7 +232,7 @@ class _ResumeAndStartState extends State<ResumeAndStart> {
                   SizedBox(
                     height: 5.0,
                   ),
-                  Material(
+                  /*Material(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
                     child: InkWell(
@@ -305,7 +308,7 @@ class _ResumeAndStartState extends State<ResumeAndStart> {
                         ),
                       ),
                     ),
-                  ),
+                  ),*/
                   SizedBox(
                     height: 5.0,
                   ),

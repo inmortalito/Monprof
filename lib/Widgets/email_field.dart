@@ -7,43 +7,32 @@ class EmailField extends StatelessWidget {
   Widget passField(context) {
     var usedeob = Provider.of<UserDetailsProvider>(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+      height: 40,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: Offset(0, 2),
+            )
+          ]),
+      padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 10.0),
       child: TextField(
         style:
-            TextStyle(color: Colors.white, fontFamily: "Mada", fontSize: 22.0),
+            TextStyle(color: Colors.black, fontFamily: "Mada", fontSize: 18.0),
         onChanged: (String value) {
           usedeob.changeEmail(value);
         },
         keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: const BorderSide(
-              color: Color.fromRGBO(255, 255, 255, 0.5),
-              width: 2.0,
-            ),
-          ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.only(top: 12.0, left: 2.0, bottom: 12.0),
-            child: Icon(
-              Icons.email,
-              color: Colors.white.withOpacity(0.5),
-              size: 20,
-            ),
-          ),
-          hintText: "Enter your email",
+        decoration: InputDecoration.collapsed(
+          hintText: "Email Address",
           hintStyle: TextStyle(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.black.withOpacity(0.5),
               fontFamily: "Muli",
-              fontSize: 22.0),
-          errorText: usedeob.email.error,
-          errorStyle: TextStyle(
-              color: Colors.white, fontFamily: "Muli", fontSize: 12.0),
-          errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFF44A4A))),
-          focusedErrorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white, width: 2.0)),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white, width: 2.0)),
+              fontSize: 14.0),
         ),
       ),
     );

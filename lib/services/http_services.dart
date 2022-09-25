@@ -33,7 +33,8 @@ class HttpService {
   }
 
   Future<List<FaqElement>> fetchInstructorFaq() async {
-    var response = await http.get("${APIData.instructorFaq}${APIData.secretKey}");
+    var response =
+        await http.get("${APIData.instructorFaq}${APIData.secretKey}");
     var jsonResponse = (convert.jsonDecode(response.body)['faq']) as List;
     return jsonResponse.map((faq) => FaqElement.fromJson(faq)).toList();
   }
@@ -75,8 +76,7 @@ class HttpService {
       return false;
   }
 
-
-  Future<bool> login(String email, String pass, BuildContext context) async {
+  Future<int> login(String email, String pass, BuildContext context) async {
     http.Response res = await http
         .post(APIData.login, body: {"email": email, "password": pass});
     if (res.statusCode == 200) {
@@ -86,17 +86,32 @@ class HttpService {
       await storage.write(key: "token", value: "$authToken");
       await storage.write(key: "refreshToken", value: "$refreshToken");
       authToken = await storage.read(key: "token");
-      HomeDataProvider homeData = Provider.of<HomeDataProvider>(context, listen: false);
+      HomeDataProvider homeData =
+          Provider.of<HomeDataProvider>(context, listen: false);
       await homeData.getHomeDetails(context);
     }
-    print("Hello: ${res.statusCode}");
-    return res.statusCode == 200 ? true : false;
+    //print("Hello: ${res.statusCode}");
+    return res.statusCode;
   }
 
-  Future<bool> signUp(String name, String email, String password) async {
-    http.Response res = await http.post(APIData.register,
-        body: {"name": name, "email": email, "password": password});
-      print("ST: ${res.statusCode}");
+  Future<bool> signUp(String name, String last, String email, String phone,
+      String faculte, String filiere, String city, String password) async {
+    //print(filiere);
+    //print(city);
+    //return false;
+    //return true;
+    http.Response res = await http.post(APIData.register, body: {
+      "name": name,
+      "last": last,
+      "phone": phone,
+      "faculte": faculte,
+      "email": email,
+      "filiere": filiere,
+      "city": city,
+      "password": password
+    });
+    print("ST: ${res.statusCode}");
+    print("body : ${res.body}");
     if (res.statusCode == 200)
       return true;
     else
@@ -138,8 +153,8 @@ class HttpService {
   }
 
   Future<List<Orderhistory>> fetchPurchaseHistory() async {
-    var response =
-        await http.get(APIData.purchaseHistory + "${APIData.secretKey}", headers: {
+    var response = await http
+        .get(APIData.purchaseHistory + "${APIData.secretKey}", headers: {
       HttpHeaders.authorizationHeader: "Bearer $authToken",
       HttpHeaders.acceptHeader: "application/json"
     });

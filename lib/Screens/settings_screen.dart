@@ -98,11 +98,11 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
         child: Column(
           children: [
-            personalInfoTile(0, FontAwesomeIcons.user, "Name",
+            personalInfoTile(0, FontAwesomeIcons.user, "Nom & Prénom",
                 user.fname.toString() + " " + user.lname.toString(), txtClr),
             personalInfoTile(
                 1, Icons.mail, "Email", user.email.toString(), txtClr),
-            personalInfoTile(3, FontAwesomeIcons.phone, "Mobile Number",
+            personalInfoTile(3, FontAwesomeIcons.phone, "Numero de télephone",
                 user.mobile.toString(), txtClr),
           ],
         ));
@@ -186,7 +186,8 @@ class _SettingScreenState extends State<SettingScreen> {
               Provider.of<Visible>(context, listen: false).toggleVisible(false);
               Navigator.of(context).pushNamed('/SignIn');
             } else {
-              _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Logout failed!")));
+              _scaffoldKey.currentState
+                  .showSnackBar(SnackBar(content: Text("Logout failed!")));
             }
           },
           child: logoutLoading
@@ -194,7 +195,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   valueColor: AlwaysStoppedAnimation<Color>(headingColor),
                 )
               : Text(
-                  "LOG OUT",
+                  "Se déconnecter",
                   style: TextStyle(
                       color: headingColor,
                       fontSize: 16,
@@ -229,10 +230,11 @@ class _SettingScreenState extends State<SettingScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              headingOfSection("Personal Information", mode.headingColor, 1),
+              headingOfSection(
+                  "Les informations personnelles", mode.headingColor, 1),
               personalInfoSection(user, mode.txtcolor),
-              headingOfSection("Support", mode.headingColor, 0),
-              supportSection(mode.txtcolor),
+              //headingOfSection("Support", mode.headingColor, 0),
+              //supportSection(mode.txtcolor),
               logoutSection(mode.headingColor),
               // bottomLine()
             ],

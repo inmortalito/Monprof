@@ -129,68 +129,77 @@ class _NotificationScreenState extends State<NotificationScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(flex: 1, child: data.image == null ? ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Image.asset(
-                  "assets/placeholder/trusted.png",
-                  height: 90,
-                  width: 90,
-                ),
-              ): CachedNetworkImage(
-                  imageUrl: "${APIData.courseImages}${data.image}",
-                  imageBuilder: (context, imageProvider) => Container(
-                    height: 90,
-                    width: 90,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  placeholder: (context, url) => ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image.asset(
-                      "assets/placeholder/trusted.png",
-                      height: 90,
-                      width: 90,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image.asset(
-                      "assets/placeholder/trusted.png",
-                      height: 90,
-                      width: 90,
-                    ),
-                  )),),
-              SizedBox(width: 10.0,),
-              Expanded(flex: 3, child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    data.id,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: txtColor,
-                        fontSize: 17),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    data.data,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(color: txtColor, fontSize: 15),
-                  ),
-                  showDate(date, txtColor)
-                ],
+              Expanded(
+                flex: 1,
+                child: data.image == null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.asset(
+                          "assets/placeholder/trusted.png",
+                          height: 90,
+                          width: 90,
+                        ),
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: "${APIData.courseImages}${data.image}",
+                        imageBuilder: (context, imageProvider) => Container(
+                              height: 90,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                        placeholder: (context, url) => ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.asset(
+                                "assets/placeholder/trusted.png",
+                                height: 90,
+                                width: 90,
+                              ),
+                            ),
+                        errorWidget: (context, url, error) => ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.asset(
+                                "assets/placeholder/trusted.png",
+                                height: 90,
+                                width: 90,
+                              ),
+                            )),
               ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.id,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: txtColor,
+                          fontSize: 17),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      data.data,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(color: txtColor, fontSize: 15),
+                    ),
+                    showDate(date, txtColor)
+                  ],
+                ),
               ),
             ],
           ),
@@ -227,7 +236,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "No Notifications",
+                    "Aucune notifications",
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -236,7 +245,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   Container(
                     width: 250,
                     child: Text(
-                      "You are all caught up ! Check back later for new notifications",
+                      "Vous êtes tous rattrapés ! Revenez plus tard pour les nouvelles notifications",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 15,
