@@ -482,7 +482,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           setState(() {
             isloading = true;
           });
-          bool signUp;
+          int signUp;
           signUp = await httpService.signUp(
               nameController.value.text,
               lastController.value.text,
@@ -492,7 +492,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               _category,
               _citie,
               passwordController.value.text);
-          if (signUp) {
+          if (signUp==200) {
             setState(() {
               isloading = false;
             });
@@ -510,7 +510,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
             await Future.delayed(Duration(seconds: 4));
 
             Navigator.of(context).pushNamed('/SignIn');
-          } else {
+          } else if(signUp==302) {
+            setState(() {
+              isloading = false;
+            });
+            scaffoldKey.currentState.showSnackBar(SnackBar(
+              backgroundColor: Color(0xFFdf4759),
+              content: Text("Cette adresse e-mail a été déjà utilisée !!"),
+              action: SnackBarAction(
+                  textColor: Colors.white,
+                  label: "Recommencez",
+                  onPressed: () {
+                    setState(() {});
+                  }),
+            ));
+          }else{
             setState(() {
               isloading = false;
             });

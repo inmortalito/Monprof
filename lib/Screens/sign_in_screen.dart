@@ -281,114 +281,108 @@ class _SignInScreenState extends State<SignInScreen>
 
   openwhatsapp() async {
     var whatsapp = "+212717607747";
-    var whatsappURl_android =
-        "whatsapp://send?phone=" + whatsapp + "&text=عرض الدعم2 باك";
-    var whatappURL_ios = "https://wa.me/$whatsapp?text=${Uri.parse("hello")}";
-    if (Platform.isIOS) {
-      // for iOS phone only
-      if (await canLaunch(whatappURL_ios)) {
-        await launch(whatappURL_ios, forceSafariVC: false);
-      } else {
-        sk.currentState
-            .showSnackBar(SnackBar(content: new Text("whatsapp no installed")));
-      }
-    } else {
+    //var whatsappURl_android =
+       // "whatsapp://send?phone=" + whatsapp + "&text=عرض الدعم2 باك";
+    var whatappURL = "https://wa.me/$whatsapp?text=${Uri.parse("عرض الدعم2 باك")}";
+
       // android , web
-      if (await canLaunch(whatsappURl_android)) {
-        await launch(whatsappURl_android);
+      if (await canLaunch(whatappURL)) {
+        await launch(whatappURL);
       } else {
         sk.currentState
             .showSnackBar(SnackBar(content: new Text("whatsapp no installed")));
       }
-    }
+
   }
 
 //  Login View
   Widget loginFields(homeAPIData) {
     var width = MediaQuery.of(context).size.width;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          logo(),
-          SizedBox(
-            height: 30,
-          ),
-          Text(
-            "Login".toUpperCase(),
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 1.0),
-          ),
-          SizedBox(
-            height: 30, // <-- SEE HERE
-          ),
-          EmailField(),
-          SizedBox(
-            height: 30.0,
-          ),
-          PasswordField(),
-          SizedBox(
-            height: 10.0,
-          ),
-          Container(
-              padding: EdgeInsets.only(
-                bottom: 3, // space between underline and text
-              ),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                color: Colors.white, // Text colour here
-                width: 1.0, // Underline width
-              ))),
-              child: InkWell(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Mot de passe oublié?",
-                    style: TextStyle(
-                        fontFamily: "Mada",
-                        fontSize: 14,
-                        color: Color(0xFF037FF2)),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, "/forgotPassword");
-                },
-              )),
-          signInButton(width),
-          SizedBox(
-            height: 10,
-          ),
-          signUpRow(),
-          SizedBox(
-            height: 50.0,
-          ),
-          Text(
-            "Contactez-Nous".toUpperCase(),
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 1.0),
-          ),
-          contactez(),
-          SizedBox(
-            height: 0.0,
-          ),
-          Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: Container(
-              padding: EdgeInsets.all(25.0),
-              child: Text(
-                "Copyright ©2022 MonProf",
-                style: TextStyle(
-                    fontFamily: "Mada",
-                    color: Color(0xFF037FF2).withOpacity(0.5),
-                    height: 1.5),
-                textAlign: TextAlign.center,
-              ),
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            logo(),
+            SizedBox(
+              height: 30,
             ),
-          )
-        ],
+            Text(
+              "Login".toUpperCase(),
+              style: TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 1.0),
+            ),
+            SizedBox(
+              height: 30, // <-- SEE HERE
+            ),
+            EmailField(),
+            SizedBox(
+              height: 30.0,
+            ),
+            PasswordField(),
+            SizedBox(
+              height: 10.0,
+            ),
+            Container(
+                padding: EdgeInsets.only(
+                  bottom: 3, // space between underline and text
+                ),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                  color: Colors.white, // Text colour here
+                  width: 1.0, // Underline width
+                ))),
+                child: InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Mot de passe oublié?",
+                      style: TextStyle(
+                          fontFamily: "Mada",
+                          fontSize: 14,
+                          color: Color(0xFF037FF2)),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/forgotPassword");
+                  },
+                )),
+            signInButton(width),
+            SizedBox(
+              height: 10,
+            ),
+            signUpRow(),
+            SizedBox(
+              height: 50.0,
+            ),
+            Text(
+              "Contactez-Nous".toUpperCase(),
+              style: TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 1.0),
+            ),
+            contactez(),
+            SizedBox(
+              height: 0.0,
+            ),
+            Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Container(
+                padding: EdgeInsets.all(25.0),
+                child: Text(
+                  "Copyright ©2022 MonProf",
+                  style: TextStyle(
+                      fontFamily: "Mada",
+                      color: Color(0xFF037FF2).withOpacity(0.5),
+                      height: 1.5),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "198798876856",
+    "project_id": "monprof-2bbb7",
+    "storage_bucket": "monprof-2bbb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198798876856:android:a7bf6a427ba3e60330d44d",
+        "android_client_info": {
+          "package_name": "bac.monprof.academy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198798876856-d068dpkcdjss9c31b1dh40va64h9777f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxqNsXv_EohgHO9s1Pi04xDZ2JDum_N_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198798876856-d068dpkcdjss9c31b1dh40va64h9777f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198798876856:android:9a87049eb21692b330d44d",
+        "android_client_info": {
+          "package_name": "com.ishandeveloper.chatter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198798876856-d068dpkcdjss9c31b1dh40va64h9777f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxqNsXv_EohgHO9s1Pi04xDZ2JDum_N_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198798876856-d068dpkcdjss9c31b1dh40va64h9777f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

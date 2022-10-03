@@ -10,6 +10,10 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class Semester extends StatefulWidget {
+  Function(String) onSemesterSelected;
+
+  Semester({this.onSemesterSelected});
+
   @override
   _Semester createState() => _Semester();
 }
@@ -20,9 +24,7 @@ class _Semester extends State<Semester> {
 
   String page = "0";
 
-  Widget screen1(String semester_id) {
-    return Cours(semester_id);
-  }
+  Function(String) get onSemesterSelected => widget.onSemesterSelected;
 
   List<String> semesterId = [];
 
@@ -52,9 +54,8 @@ class _Semester extends State<Semester> {
           disabledColor: Color(clr).withOpacity(0.5),
           onPressed: () {
             if (active) {
-              setState(() {
-                page = title;
-              });
+
+              onSemesterSelected(title);
               /*
               Navigator.pushNamed(
                 context,
@@ -91,8 +92,7 @@ class _Semester extends State<Semester> {
     int usr_id = user.profileInstance.id;
 
     var width = MediaQuery.of(context).size.width;
-    return page == "0"
-        ? Scaffold(
+    return  Scaffold(
             body: FutureBuilder(
                 future: get_semesters("$usr_id"),
                 builder: (BuildContext context,
@@ -139,7 +139,7 @@ class _Semester extends State<Semester> {
                     return Center(child: CircularProgressIndicator());
                   }
                 }),
-          )
-        : screen1(page);
+          );
+
   }
 }

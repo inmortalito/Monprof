@@ -37,6 +37,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     SettingScreen(),
   ];
 
+  void filiereSelected(int index) {
+     print("hello =================$index");
+  }
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -79,6 +82,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   Future<bool> onBackPressed() {
     bool value;
+    return new Future.value(value);
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -119,7 +124,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         ],
       ),
     );
-    return new Future.value(value);
   }
 
   Widget navigationBar() {
@@ -236,13 +240,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     T.Theme mode = Provider.of<T.Theme>(context);
-    return WillPopScope(
-        child: Scaffold(
-            key: scaffoldKey,
-            appBar: appBar(mode.bgcolor, context, scaffoldKey),
-            //drawer: CustomDrawer(),
-            bottomNavigationBar: navigationBar(),
-            body: Center(child: _widgetOptions.elementAt(_selectedIndex))),
-        onWillPop: onBackPressed);
+    return Scaffold(
+        key: scaffoldKey,
+        appBar: appBar(mode.bgcolor, context, scaffoldKey),
+        //drawer: CustomDrawer(),
+        bottomNavigationBar: navigationBar(),
+        body: Center(child: _widgetOptions.elementAt(_selectedIndex)));
   }
 }

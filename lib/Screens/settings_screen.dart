@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../Screens/edit_profile.dart';
 import '../model/user_profile_model.dart';
 import '../provider/visible_provider.dart';
@@ -223,21 +225,67 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     UserProfileModel user = Provider.of<UserProfile>(context).profileInstance;
     T.Theme mode = Provider.of<T.Theme>(context);
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: mode.bgcolor,
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              headingOfSection(
-                  "Les informations personnelles", mode.headingColor, 1),
-              personalInfoSection(user, mode.txtcolor),
-              //headingOfSection("Support", mode.headingColor, 0),
-              //supportSection(mode.txtcolor),
-              logoutSection(mode.headingColor),
-              // bottomLine()
-            ],
+    return WillPopScope(
+        onWillPop: ()async{
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              title: Text(
+                'Confirm Exit',
+                style: TextStyle(
+                    fontFamily: 'Mada',
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF0284A2)),
+              ),
+              content: Text(
+                'Are you sure that you want to exit',
+                style: TextStyle(fontFamily: 'Mada', color: Color(0xFF3F4654)),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Cancel".toUpperCase(),
+                      style: TextStyle(
+                          color: Color(0xFF0284A2), fontWeight: FontWeight.w600),
+                    )),
+                SizedBox(height: 16),
+                FlatButton(
+                    onPressed: () {
+                      SystemNavigator.pop();
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Yes".toUpperCase(),
+                      style: TextStyle(
+                          color: Color(0xFF0284A2), fontWeight: FontWeight.w600),
+                    )),
+              ],
+            ),
+          );
+
+        return new Future.value(false);
+        },
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: mode.bgcolor,
+        body: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                headingOfSection(
+                    "Les informations personnelles", mode.headingColor, 1),
+                personalInfoSection(user, mode.txtcolor),
+                //headingOfSection("Support", mode.headingColor, 0),
+                //supportSection(mode.txtcolor),
+                logoutSection(mode.headingColor),
+                // bottomLine()
+              ],
+            ),
           ),
         ),
       ),

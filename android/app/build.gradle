@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -40,6 +40,7 @@ android {
 
     lintOptions {
         disable 'InvalidPackage'
+        //checkReleaseBuilds false
     }
 
     defaultConfig {
@@ -49,6 +50,7 @@ android {
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        
     }
 
     signingConfigs {
@@ -83,4 +85,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    implementation platform('com.google.firebase:firebase-bom:26.4.0')
+
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }
+apply plugin: 'com.google.gms.google-services'

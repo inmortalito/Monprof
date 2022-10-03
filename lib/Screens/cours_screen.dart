@@ -8,10 +8,10 @@ import 'cours_live.dart';
 
 class Cours extends StatefulWidget {
   String semesterId;
+  Function(String,String) onCoureSelected;
 
-  Cours(String semester_Id) {
-    semesterId = semester_Id;
-  }
+  Cours({this.semesterId,this.onCoureSelected});
+
 
   @override
   _Cours createState() => _Cours();
@@ -24,6 +24,7 @@ class _Cours extends State<Cours> {
   int page = 0;
   String getTitle;
 
+  Function(String,String) get onCoureSelected => widget.onCoureSelected;
   Object get semesterId => widget.semesterId;
 
   Widget screen1(int cours_id) {
@@ -55,10 +56,7 @@ class _Cours extends State<Cours> {
           color: Color(clr).withOpacity(0.2),
           disabledColor: Color(clr).withOpacity(0.5),
           onPressed: () {
-            setState(() {
-              page = coursID;
-              getTitle = title;
-            });
+            onCoureSelected("$coursID",title);
           },
         ),
       ),

@@ -94,7 +94,7 @@ class HttpService {
     return res.statusCode;
   }
 
-  Future<bool> signUp(String name, String last, String email, String phone,
+  Future<int> signUp(String name, String last, String email, String phone,
       String faculte, String filiere, String city, String password) async {
     //print(filiere);
     //print(city);
@@ -112,10 +112,10 @@ class HttpService {
     });
     print("ST: ${res.statusCode}");
     print("body : ${res.body}");
-    if (res.statusCode == 200)
-      return true;
-    else
-      return false;
+    //if (res.statusCode == 200)
+    //  return true;
+    //else
+    return res.statusCode;
   }
 
   Future<List<About>> fetchAboutUs() async {
