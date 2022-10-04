@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eclass/model/comment.dart';
 
 class DatabaseMethods {
   getUserByUserName(String username) {
@@ -24,6 +25,14 @@ class DatabaseMethods {
         .catchError((e) => print(e.toString()));
   }
 
+
+  addComment(Comment comment) async {
+    FirebaseFirestore.instance
+        .collection('comments').doc(comment.id).collection(comment.id)
+        .add(comment.toJson())
+        .catchError((e) => print(e.toString()));
+  }
+
   createChatRoom(String chatRoomId, chatRoomMap) {
     FirebaseFirestore.instance
         .collection('ChatRoom')
@@ -43,12 +52,12 @@ class DatabaseMethods {
     });
   }
 
-  getConversationMessage(String chatRoomId) async {
+  getConversationMessage(String videoId) async {
     return FirebaseFirestore.instance
-        .collection("ChatRoom")
-        .doc(chatRoomId)
-        .collection("chats")
-        .orderBy('time')
+        .collection("comments")
+        .doc(videoId)
+        .collection(videoId)
+        .orderBy('date')
         .snapshots();
   }
 

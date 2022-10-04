@@ -1,4 +1,5 @@
 import 'package:eclass/provider/recent_course_provider.dart';
+import 'Screens/comments.dart';
 import 'Screens/cours_screen.dart';
 
 import 'Screens/filiers_screen.dart';
@@ -66,7 +67,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PaymentAPIProvider())
       ],
       child: MaterialApp(
-        home: token == null ? SignInScreen() : LoadingScreen(token),
+       // home: token == null ? SignInScreen() : LoadingScreen(token),
+        home: CommentsScreen(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Mada'),
         routes: {

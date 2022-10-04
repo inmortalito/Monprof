@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eclass/model/comment.dart';
 import 'package:eclass/services/firebase_controller.dart';
 
 import '../Screens/bottom_navigation_screen.dart';
@@ -22,7 +23,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   initState() {
     super.initState();
-    testFirebase();
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var token = await storage.read(key: "token");
       authToken = token;
@@ -40,10 +41,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     });
   }
 
-  void testFirebase()async{
-   DocumentSnapshot doc = await DatabaseMethods().getUserByUserName("youness");
-   log(doc.data().toString());
-  }
   Widget logoWidget() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
